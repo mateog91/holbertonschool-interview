@@ -5,6 +5,9 @@ Module for pascal triangle function
 
 
 def pascal_triangle(n):
+    """pascal triangle function
+    return empty list when n <=0
+    else returns list of lists of pascal triangle for n rows"""
     if n <= 0:
         return []
     # initial result
