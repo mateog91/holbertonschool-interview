@@ -2,13 +2,15 @@
 """
 Module for pascal triangle function
 """
+
+
 def pascal_triangle(n):
-    #initial result
+    # initial result
     result = [[1]]
 
-    #outer loop for rows
+    # outer loop for rows
     for i in range(n - 1):
-        #create temporary row
+        # create temporary row
         temp_row = [0] + result[-1] + [0]
         # calculate length of new row
         new_row_length = len(result[-1]) + 1
@@ -16,7 +18,8 @@ def pascal_triangle(n):
         # for j in range(new_row_length):
         #     new_row.append(temp_row[j] + temp_row[j + 1])
 
-        new_row = [temp_row[j] + temp_row[j + 1] for j in range(new_row_length)]
+        new_row = [temp_row[j] + temp_row[j + 1]
+                   for j in range(new_row_length)]
 
         result.append(new_row)
     return result
