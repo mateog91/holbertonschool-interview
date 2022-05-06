@@ -51,7 +51,7 @@ for i in range(10000):
     ))
     sys.stdout.flush()
 
-alexa@ubuntu:~/0x03-log_parsing$ ./0-generator.py | ./0-stats.py 
+alexa@ubuntu:~/0x03-log_parsing$ ./0-generator.py | ./0-stats.py
 File size: 5213
 200: 2
 401: 1
@@ -94,4 +94,4 @@ Traceback (most recent call last):
 KeyboardInterrupt
     sleep(random.random())
 KeyboardInterrupt
-alexa@ubuntu:~/0x03-log_parsing$ 
+alexa@ubuntu:~/0x03-log_parsing$
