@@ -21,15 +21,15 @@ try:
     count = 0
     # catch input line
     for line in sys.stdin:
-        # print(count)
-        # split inputline
-        line = line.split()
-        count += 1
+
+        
+        if count != 0 and count % 10 == 0:
+            statistics(status_code_counts, total_file_size)
 
         # check line has correct format
         if len(line) == 9:
-            if count != 0 and count % 10 == 0:
-                statistics(status_code_counts, total_file_size)
+            line = line.split()
+            count += 1
             try:
                 status_code, file_size = int(line[7]), int(line[8])
 
