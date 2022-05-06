@@ -48,6 +48,7 @@ for line in sys.stdin:
     # print(count)
     # split inputline
     line = line.split()
+    count += 1
 
     # check line has correct format
     if len(line) == 9:
@@ -58,7 +59,6 @@ for line in sys.stdin:
             # print(status_code in possible_status_codes)
             # check if is valid status code
             if status_code in possible_status_codes:
-                count += 1
                 total_file_size += file_size
                 status_code_counts[status_code] += 1
                 if count % 10 == 0:
