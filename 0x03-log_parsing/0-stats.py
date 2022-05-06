@@ -15,7 +15,6 @@
             format: <status code>: <number>
             status codes should be printed in ascending order
 """
-import signal
 import sys
 
 
@@ -28,41 +27,34 @@ def statistics(status_counts_dict, total_file_size):
      for tup in list_tupples if tup[1] > 0]
 
 
-def handler(signum, frame):
-    """ handles the signal ctr + c"""
+try:
+
+    # initialize variables
+    possible_status_codes = [200, 301, 400, 401, 403, 404, 405, 500]
+    status_code_counts = {element: 0 for element in possible_status_codes}
+    total_file_size = 0
+    count = 0
+
+    # catch input line
+    for line in sys.stdin:
+        # print(count)
+        # split inputline
+        line = line.split()
+        count += 1
+
+        # check line has correct format
+        if len(line) == 9:
+            if count != 0 and count % 10 == 0:
+                statistics(status_code_counts, total_file_size)
+            try:
+                status_code, file_size = int(line[7]), int(line[8])
+
+                if status_code in possible_status_codes:
+                    total_file_size += file_size
+                    status_code_counts[status_code] += 1
+
+            except TypeError:
+                pass
+except KeyboardInterrupt:
     statistics(status_code_counts, total_file_size)
-    exit(1)
-
-
-signal.signal(signal.SIGINT, handler)
-
-
-# initialize variables
-possible_status_codes = [200, 301, 400, 401, 403, 404, 405, 500]
-status_code_counts = {element: 0 for element in possible_status_codes}
-total_file_size = 0
-count = 0
-
-# catch input line
-for line in sys.stdin:
-    # print(count)
-    # split inputline
-    line = line.split()
-    count += 1
-
-    # check line has correct format
-    if len(line) == 9:
-        # print(len(line))
-        try:
-            status_code, file_size = int(line[7]), int(line[8])
-            # print(f"status code: {status_code} file size: {file_size}")
-            # print(status_code in possible_status_codes)
-            # check if is valid status code
-            if status_code in possible_status_codes:
-                total_file_size += file_size
-                status_code_counts[status_code] += 1
-                if count % 10 == 0:
-                    statistics(status_code_counts, total_file_size)
-
-        except TypeError:
-            pass
+    raise
