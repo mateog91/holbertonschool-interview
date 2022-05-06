@@ -31,7 +31,7 @@ if __name__ == '__main__':
                 if count != 0 and count % 10 == 0:
                     statistics(status_code_counts, total_file_size)
                 try:
-                    status_code, file_size = int(line[7]), int(line[8])
+                    status_code, file_size = int(line[-2]), int(line[-1])
 
                     if status_code in possible_status_codes:
                         total_file_size += file_size
