@@ -39,6 +39,7 @@ if __name__ == '__main__':
 
             except Exception:
                 pass
+        statistics(status_codes, total_file_size)
     except (KeyboardInterrupt, SystemExit):
         statistics(status_codes, total_file_size)
         raise
