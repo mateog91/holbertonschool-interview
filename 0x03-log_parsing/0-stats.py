@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """Write a script that reads stdin line by line and computes metrics:
-
     Input format:
 <IP Address> - [<date>] "GET /projects/260 HTTP/1.1" <status code> <file size>
 (if the format is not this one, the line must be skipped)
@@ -21,13 +20,16 @@ import sys
 
 
 def statistics(status_counts_dict, total_file_size):
+    """ prints statistics at that moment"""
     list_tupples = [(key, value) for key, value in status_counts_dict.items()]
     list_tupples.sort(key=lambda y: y[0])
-    print(f"File size: {total_file_size}")
-    [print(f"{tup[0]}: {tup[1]}") for tup in list_tupples if tup[1] > 0]
+    print("File size: {}".format(total_file_size))
+    [print("{}: {}".format(tup[0], tup[1]))
+     for tup in list_tupples if tup[1] > 0]
 
 
 def handler(signum, frame):
+    """ handles the signal ctr + c"""
     statistics(status_code_counts, total_file_size)
     exit(1)
 
@@ -62,5 +64,5 @@ for line in sys.stdin:
                 if count % 10 == 0:
                     statistics(status_code_counts, total_file_size)
 
-        except:
+        except TypeError:
             pass
