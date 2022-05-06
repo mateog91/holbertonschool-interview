@@ -22,7 +22,6 @@ try:
     # catch input line
     for line in sys.stdin:
 
-        
         if count != 0 and count % 10 == 0:
             statistics(status_code_counts, total_file_size)
 
