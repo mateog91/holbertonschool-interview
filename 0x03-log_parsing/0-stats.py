@@ -25,10 +25,6 @@ if __name__ == '__main__':
             line = line.split()
             count += 1
 
-            # check line has correct format
-
-            if count != 0 and count % 10 == 0:
-                statistics(status_codes, total_file_size)
             try:
                 status_code, file_size = line[-2], int(line[-1])
                 total_file_size += file_size
@@ -38,7 +34,12 @@ if __name__ == '__main__':
 
             except Exception:
                 pass
+
+            if count % 10 == 0:
+                statistics(status_codes, total_file_size)
+
         statistics(status_codes, total_file_size)
+
     except (KeyboardInterrupt, SystemExit):
         statistics(status_codes, total_file_size)
         raise
