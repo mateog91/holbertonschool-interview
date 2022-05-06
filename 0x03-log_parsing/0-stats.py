@@ -7,16 +7,16 @@ if __name__ == '__main__':
 
     def statistics(status_counts_dict, total_file_size):
         """ prints statistics at that moment"""
-        list_tupples = [(key, value)
-                        for key, value in status_counts_dict.items()]
-        list_tupples.sort(key=lambda y: y[0])
-        print("File size: {}".format(total_file_size))
-        [print("{}: {}".format(tup[0], tup[1]))
-         for tup in list_tupples if tup[1] > 0]
+        print("File size: {:d}".format(total_file_size))
+        for code in sorted(status_counts_dict.keys()):
+            value = status_counts_dict[code]
+            if value != 0:
+                print("{}: {}".format(code, value))
+
 
     # initialize variables
-    possible_status_codes = [200, 301, 400, 401, 403, 404, 405, 500]
-    status_code_counts = {element: 0 for element in possible_status_codes}
+    status_codes= {"200": 0, "301": 0, "400": 0,
+                          "401": 0, "403": 0, "404": 0, "405": 0, "500": 0}
     total_file_size = 0
     count = 0
     try:
@@ -29,16 +29,16 @@ if __name__ == '__main__':
             # check line has correct format
 
             if count != 0 and count % 10 == 0:
-                statistics(status_code_counts, total_file_size)
+                statistics(status_codes, total_file_size)
             try:
-                status_code, file_size = int(line[-2]), int(line[-1])
+                status_code, file_size = line[-2], int(line[-1])
+                total_file_size += file_size
 
-                if status_code in possible_status_codes:
-                    total_file_size += file_size
-                    status_code_counts[status_code] += 1
+                if status_code in status_codes:
+                    status_codes[status_code] += 1
 
             except Exception:
                 pass
     except (KeyboardInterrupt, SystemExit):
-        statistics(status_code_counts, total_file_size)
+        statistics(status_codes, total_file_size)
         raise
